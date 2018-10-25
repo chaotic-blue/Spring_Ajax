@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+		<!--mapUnderscoreToCamelCase 자동으로 필드 이름에 _ 가 있으면 낙타표기법으로 바꿔라. -->
+	</settings>
+		
+	<!-- Alias 설정 -->
+	<typeAliases>
+		<!-- <typeAlias alias="board" type="com.yedam.app.board.BoardVO" /> 별칭을 준다. -->
+		<typeAlias alias="user" type="com.company.hellospring.UserDTO" />
+		<typeAlias alias="board" type="com.company.hellospring.board.BoardDTO" />
+		<typeAlias alias="userSearch" type="com.company.hellospring.UserSearchDTO" />
+	</typeAliases> 
+	
+</configuration>

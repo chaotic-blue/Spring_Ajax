@@ -5,16 +5,22 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-@XmlRootElement(name = "datas") //bean이 xml로 변환된다고 알려주는 어노테이션. 루트노드명
-@XmlAccessorType(XmlAccessType.FIELD) // 자식노드 타입
+@XmlRootElement(name = "datas")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class UserBean {
 	
 	String id;
 	@XmlTransient
-	String pw; 
-	// xml변환할떄 pw필드는 생략하라
-	boolean result;
+	String pw;
+	boolean result;	
 	
+	
+	public boolean getResult() {
+		return result;
+	}
+	public void setResult(boolean result) {
+		this.result = result;
+	}
 	public String getId() {
 		return id;
 	}
@@ -27,12 +33,7 @@ public class UserBean {
 	public void setPw(String pw) {
 		this.pw = pw;
 	}
-	public boolean getResult() {
-		return result;
-	}
-	public void setResult(boolean result) {
-		this.result = result;
-	}
-
 	
+	
+
 }

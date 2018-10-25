@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <!-- DOCTYPE mapper는 최상위 루트 로드가 매퍼라는 뜻 
+ 그래서 태그 컨트롤+스페이스 하면 관련된 것을 사용 할수 있다.
+ -->
+ 
+<mapper namespace="user">	
+<!-- 전체조회 -->
+<select id="getUsers" resultType="userSearch" parameterType="userSearch"> 
+select * from ( select u.*, rownum rn from (
+
+	select * from users 
+	<where>
+		<if test="ids != null">
+		id in
+		<foreach collection="ids" open="(" close=")" separator="," item="item"> <!-- item은 foreach문으로 따지면 list에서 받는 변수  -->
+			#{item}
+		</foreach>
+		</if>
+		<if test="searchCondition == 'id'">
+			and id like '%' || #{searchKeyword} || '%'
+		</if>
+		<if test="searchCondition == 'name'">
+			and name like '%' || #{searchKeyword} || '%'
+		</if>
+		<if test="role != null and role != ''"> <!-- role이 null이 아니고 값도 없다면 -->
+			and role = #{role}
+		</if>
+	</where> 
+	order by 
+	<choose>
+		<when test="sort != null and sort != ''">
+			${sort}
+		</when>
+		<otherwise>
+			ID
+		</otherwise>
+	</choose>
+) u ) a where rn between #{start} and #{end}
+</select>
+<!-- select 는 반드시  resultType이 필요하다. 반환값을 받아야 하기 때문에
+namespace 안에서만 id가 유니크 하게 구분되면 된다. 
+sql-map-config-spring.xml에서 alias 값을 가져오면 된다.-->
+<!-- preparedStatment는 그냥 스테이트 먼트보다 속도가 빠르다. 가독성도 좋다. -->
+
+<!-- 건수조회 -->
+<select id="getCnt" resultType="int" parameterType="userSearch">
+	select count(*) from users 
+	<where>
+		<if test="ids != null">
+		id in
+		<foreach collection="ids" open="(" close=")" separator="," item="item"> <!-- item은 foreach문으로 따지면 list에서 받는 변수  -->
+			#{item}
+		</foreach>
+		</if>
+		<if test="searchCondition == 'id'">
+			and id like '%' || #{searchKeyword} || '%'
+		</if>
+		<if test="searchCondition == 'name'">
+			and name like '%' || #{searchKeyword} || '%'
+		</if>
+		
+	</where>
+
+</select>
+
+<!-- 단건조회 -->
+<select id="getUser" parameterType="user" resultType="user">
+<!-- parameterType="user" resultType="user" 파라미터 타입은 #{id}때문에 필요  
+resultType 는 조회기 때문에 반환값이 필요-->
+SELECT * FROM USERS WHERE ID = #{id}
+</select>
+
+<!-- 등록 -->
+<insert id="insertUser" parameterType="user">
+<!-- insertUser(UserDTO dto) 이기 때문에 parameterType 생략가능  -->
+	insert into users (id, password, name, role)
+	values(	#{id},
+			#{password},
+			#{name},
+			#{role})
+<!-- #{id} 라고 적으면 알아서 UserDTO의 getId()를 호출한다. -->
+</insert>
+
+<!-- 수정 -->
+<update id="updateUser" parameterType="user">
+	update users set 
+		password 	= #{password},
+		name		= #{name},
+		role		= #{role}
+	where id 		= #{id}
+</update>
+<!-- 삭제 -->
+<update id="deleteUser" parameterType="user">
+	delete from users 
+	where id = #{id}
+</update>
+</mapper> 

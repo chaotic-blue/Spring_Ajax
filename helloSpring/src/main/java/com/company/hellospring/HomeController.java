@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import coupling.TV;
+import polymorphism.coupling.TV;
 
 /**
  * Handles requests for the application home page.
@@ -23,15 +23,16 @@ import coupling.TV;
 public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	@Autowired TV tv; // 객체 생성해서 주입해달라는 요청
+	
+//	@Autowired TV tv; 
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET) //url 요청
+	@RequestMapping(value = "/", method = RequestMethod.GET) //URL 요청
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		tv.powerOn(); // @Autowired있으면 정상동작 
+		 
+//		tv.powerOn();
 		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
@@ -44,27 +45,30 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/board.do")
-	public String board(UserBean user) {
-		System.out.println(user.getId()+"===========");
-		return "board"; // 단지 board.jsp로 넘겨주는 역할.
-	}
+	public String board(UserBean user) { //http://localhost/hellospring/board.do?id=asdasd&pw=111
+		System.out.println(user.getId());
+		System.out.println(user.getPw());
+		//id,pw가 출력된다.
+		return "board";
+	}		
 	
+	//json으로 처리하기
 	@RequestMapping("/LoginCheck.do")
-	@ResponseBody //data(자바객체) --> json string 으로 변환시켜줌
-	//map : 2개의 field를 가지는 객체
-	public HashMap<String, Object> dupcheck(UserBean user){
+	@ResponseBody	//data(자바 객체) --> json string
+	public HashMap<String, Object> dupcheck(UserBean user){ ///LoginCheck.do?id=chichi
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("userid", user.getId());
-		if(user.getId().equals("admin")){
+		if(user.getId().equals("admin")) {
 			map.put("result",false);
-		} else {
+		}else {
 			map.put("result",true);
 		}
-		return map; //응답결과가 그냥 데이터. 뷰페이지 아님
-	}
+		return map;
+	}	
 	
+	//xml으로 처리하기
 	@RequestMapping("/LoginCheckXml.do")
-	@ResponseBody
+	@ResponseBody	//data(자바 객체) --> json string
 	public UserBean dupcheckXml(UserBean user) {
 		if(user.getId().equals("admin")) {
 			user.setResult(false);
@@ -73,4 +77,5 @@ public class HomeController {
 		}
 		return user;
 	}
+	
 }
