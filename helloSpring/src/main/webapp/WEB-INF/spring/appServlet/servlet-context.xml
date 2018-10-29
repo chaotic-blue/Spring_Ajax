@@ -114,7 +114,7 @@
 				error/ArithmeticError.jsp
 			</beans:prop>
 		</beans:props>
-
+ 
 	</beans:property>
 	<beans:property name="defaultErrorView"
 		value="error/error500">
