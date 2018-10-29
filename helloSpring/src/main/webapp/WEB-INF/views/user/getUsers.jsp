@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %> 
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,6 +21,7 @@
 </script>
 </head>
 <body>
+<h2><spring:message code="list.sample"></spring:message></h2>
 <img src="./images/aass.png" style="width: 200px"> <!-- servlet-context.xml에 맵핑 시켜놓아 images폴더 찾아 들어감.. 일일히 경로 맞춰줄 필요 x -->
 <%-- ${} <%= %> 과 같다.
 
@@ -47,7 +49,7 @@ for ... %> 이런 불필요한게 많다. <% 이것을 사용하면 열고 닫�
 		<option value="name" >이름</option>
 	</select>
 	<input type="text" name="searchKeyword" value="${userSearchDTO.searchKeyword}">
-	<input type="submit" value="검색">
+	<input type="submit" value="<spring:message code="search.keyword"/>"> <!-- 메세지 code처리 -->
 </form>
 
 <script>
@@ -64,7 +66,7 @@ for ... %> 이런 불필요한게 많다. <% 이것을 사용하면 열고 닫�
 	<td>롤</td>
 	</tr>
 	<c:forEach items="${list}" var="user">
-	<tr><td><a href="updateUserForm.do?id=${user.id}">${user.id}</a></td><td>${user.password}</td><td>${user.name}</td><td>${user.role}</td></tr> <!-- ${user.id} 이건 public String getId() {}을 호출한다. -->
+	<tr><td><a href="updateUserForm.do/${user.id}">${user.id}</a></td><td>${user.password}</td><td>${user.name}</td><td>${user.role}</td></tr> <!-- ${user.id} 이건 public String getId() {}을 호출한다. -->
 	</c:forEach>
 </table>
 <my:paging paging="${paging}" jsFunc="go_page"/>

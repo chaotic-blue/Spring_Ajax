@@ -29,5 +29,43 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
+<!-- 	<error-page>
+		<error-code>500</error-code> 500에러 
+		<location>/error/error500.jsp</location> 에러페이지 경로지정 
+	</error-page> -->
+	
+
+	
+<!-- 	<filter>
+		<filter-name>characterEncoding</filter-name>
+	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+	<init-param>
+		<param-name>encoding</param-name>
+		<param-value>EUC-KR</param-value>
+	</init-param>	
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>characterEncoding</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping> -->
+
+   <filter>
+      <filter-name>encodingFilter</filter-name>
+      <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+      <init-param>
+         <param-name>encoding</param-name>
+         <param-value>UTF-8</param-value>
+      </init-param>
+      <init-param>
+         <param-name>forceEncoding</param-name>
+         <param-value>true</param-value>
+      </init-param>
+   </filter>
+   <filter-mapping>
+      <filter-name>encodingFilter</filter-name>
+      <url-pattern>/*</url-pattern>
+   </filter-mapping>
 
 </web-app>

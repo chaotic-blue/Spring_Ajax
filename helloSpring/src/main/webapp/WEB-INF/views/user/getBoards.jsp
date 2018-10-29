@@ -17,7 +17,8 @@ for ... %> 이런 불필요한게 많다. <% 이것을 사용하면 열고 닫�
 <table border="1" style="width: 500px;">
 	<tr><td>제목</td><td>글쓴이</td><td>내용</td><td>날짜</td><td>조회수</td></tr>
 	<c:forEach items="${list}" var="board">
-	<tr><td><a href="updateUserForm.do?id=${board.seq}">${board.title}</a></td><td>${board.writer}</td><td>${board.content}</td><td>${board.regdate}</td><td>${board.cnt}</td></tr> <!-- ${user.id} 이건 public String getId() {}을 호출한다. -->
+	<tr><td><a href="updateUserForm.do?id=${board.seq}">${board.title}</a></td><td>${board.writer}</td><td>${board.content}</td><td>${board.regdate}</td><td>${board.cnt}</td>
+	<td><a href="./FileDown.do?atchFileId=${board.uploadFileName}"> ${board.uploadFileName}</a></td></tr> <!-- ${user.id} 이건 public String getId() {}을 호출한다. -->
 	</c:forEach>
 </table>
 </body>

@@ -1,5 +1,7 @@
 package com.company.hellospring.board;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class BoardDTO {
 	private String seq;
 	private String title;
@@ -8,7 +10,26 @@ public class BoardDTO {
 	private String regdate;
 	private String cnt;
 	private String out_msg;		//카멜케이스 적용이 안됨 그래서 똑같이 맞춰준다.
-		
+	private String uploadFileName; //첨부파일명
+	private MultipartFile[] uploadFile; //첨부파일	
+	
+	
+	public String getUploadFileName() {
+		return uploadFileName;
+	}
+
+	public void setUploadFileName(String uploadFileName) {
+		this.uploadFileName = uploadFileName;
+	}
+
+	public MultipartFile[] getUploadFile() {
+		return uploadFile;
+	}
+
+	public void setUploadFile(MultipartFile[] uploadFile) {
+		this.uploadFile = uploadFile;
+	}
+	
 	public String getOut_msg() {
 		return out_msg;
 	}

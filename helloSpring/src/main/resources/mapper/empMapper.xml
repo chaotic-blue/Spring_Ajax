@@ -48,6 +48,17 @@ where rownum <= 3
 			on (e.department_id = d.department_id) 
 </select>
 
+<select id="getEmpChart" resultType="map">
+	select department_name as "departmentName"<!-- "departmentName" -->, 
+	count(first_name) as "cnt" <!-- "firstName" -->
+		from hr.employees e join hr.departments d
+			on (e.department_id = d.department_id) 
+			GROUP BY DEPARTMENT_NAME
+</select>
+
+
+
+
 <!-- 전체 건수 return은 int -->	
 <select id="getCnt" resultType="int"><!-- 카운트 한 결과를 int Type에  넣는다. -->
 	select count(*) from hr.employees

@@ -20,4 +20,9 @@ public interface BoardService {
 	
 	public List<BoardDTO> getUsers();
 
+	int insertBoard(BoardDTO dto);
+
+
+
+
 }

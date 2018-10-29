@@ -21,6 +21,11 @@ public class BoardServiceImpl implements BoardService {
 		//logAdvice.printLogging();	//횡단관심
 		return dao.getUsers();		//핵심관심
 	}
+
+	@Override
+	public int insertBoard(BoardDTO dto) {
+		return dao.insertBoardProc(dto);
+	}
 	
 /*	@Override
 	public int updateBoard(BoardDTO dto) {		

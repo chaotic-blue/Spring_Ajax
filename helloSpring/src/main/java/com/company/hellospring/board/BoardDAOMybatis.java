@@ -19,4 +19,9 @@ public class BoardDAOMybatis {
 		System.out.println("board mybatis 프로시저호출========");
 		return mybatis.insert("board.insertBoardProc",dto);
 	}
+	
+	public int insertBoard(BoardDTO dto) {
+		System.out.println("insertBoard mybatis 프로시저호출========");
+		return mybatis.insert("board.insertBoard", dto);
+	}
 }
