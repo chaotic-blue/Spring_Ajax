@@ -17,4 +17,8 @@ public class EmpDAO {
 		return mybatis.selectList("emp.getEmpChart");
 	}
 	
+	public List<Map<String,Object>> getEmpDept(){
+		return mybatis.selectList("emp.getEmpDept");
+	}
+	
 }

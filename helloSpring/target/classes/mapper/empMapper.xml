@@ -41,11 +41,24 @@ where rownum <= 3
 </resultMap>
 <!-- 부서명이 포함된 사원 조회(조인) map -->
 <!-- <select id="getEmpDept" resultType="java.util.HashMap"> -->
-<select id="getEmpDept" resultMap="empDeptMap">
-	select department_name <!-- "departmentName" -->, 
-	first_name <!-- "firstName" -->
-		from hr.employees e join hr.departments d
-			on (e.department_id = d.department_id) 
+<select id="getEmpDept" resultType="map">
+SELECT
+     EMPLOYEES."EMPLOYEE_ID" 		AS "employeeId",
+     EMPLOYEES."FIRST_NAME"			 AS "firstName",
+     EMPLOYEES."LAST_NAME"			 AS "lastName",
+     EMPLOYEES."EMAIL" 				AS "email",
+     EMPLOYEES."PHONE_NUMBER" 		AS "phoneNumber",
+     EMPLOYEES."HIRE_DATE"			 AS "hireDate",
+     EMPLOYEES."JOB_ID"				 AS "jobId",
+     EMPLOYEES."SALARY" 			AS "salary",
+     EMPLOYEES."COMMISSION_PCT"		 AS "commissionPct",
+     EMPLOYEES."MANAGER_ID"			 AS "managerId",
+     EMPLOYEES."DEPARTMENT_ID"		 AS "departmentId",
+     DEPARTMENTS.DEPARTMENT_NAME	 AS "departmentName"
+FROM
+     "HR"."EMPLOYEES" join hr.DEPARTMENTS
+      on( EMPLOYEES.DEPARTMENT_ID = departments.DEPARTMENT_ID)
+ORDER BY EMPLOYEES.DEPARTMENT_ID
 </select>
 
 <select id="getEmpChart" resultType="map">

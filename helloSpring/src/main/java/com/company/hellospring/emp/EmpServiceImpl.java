@@ -11,10 +11,18 @@ public class EmpServiceImpl implements EmpService {
 
 	@Autowired
 	EmpDAO dao;
+	
+	
 	@Override
 	public List<Map<String, Object>> getEmpChart() {
 		
 		return dao.getEmpChart();
+	}
+
+	@Override
+	public List<Map<String, Object>> getEmpDept() {
+		// TODO Auto-generated method stub
+		return dao.getEmpDept();
 	}
 	
 
