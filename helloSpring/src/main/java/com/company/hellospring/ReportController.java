@@ -27,6 +27,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.company.hellospring.emp.EmpService;
 
@@ -46,6 +47,7 @@ public class ReportController {
 	@Autowired EmpService empService;
 	private String filename;
 	private Object deptService;
+	
 	@RequestMapping("report.do")
 	public void report(HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
@@ -69,6 +71,19 @@ public class ReportController {
 	e.printStackTrace();
 	}
 }
+	
+
+	@RequestMapping("/deptExcelView.do")
+	public ModelAndView excelView(HttpServletResponse response) {
+		List<Map<String, Object>> list = empService.getEmpDept();
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		/*String[] header = {"departmentId","departmentName","managerId"};*/
+		/*map.put("headers", header);*/
+		map.put("filename", "excel_dept");
+		map.put("datas", list);
+		return new ModelAndView("commonExcelView", map);
+	}
 	
 
 	/*//엑셀출력
@@ -135,5 +150,6 @@ public class ReportController {
 	uFile.delete(); //파일삭제
 	response.getOutputStream().flush();
 	response.getOutputStream().close();*/
+	
 }
 
