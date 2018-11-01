@@ -46,7 +46,7 @@ $.ajax({
 </script>
 </head>
 <body>
-<% int a=5/0; %>
+<%-- <% int a=5/0; %> --%>
 	<div id="chart_div"></div>
 </body>
 </html>
